@@ -173,7 +173,7 @@ class Loss(nn.Module):
         self.criterion_mse_recon = nn.MSELoss()
         self.criterion_mse_latent = nn.MSELoss()
         self.aff_init = aff_init
-        self.eta = nn.Parameter(torch.Tensor([0, -1., -10.]), requires_grad=True)
+        self.eta = nn.Parameter(torch.Tensor([0, -1., -10.]), requires_grad=True)  #这里等价于初始化的是log（theta） 所以后面需要乘以torch.exp
 
         # self.eta = nn.Parameter(torch.Tensor([0.1, -1., -10.]), requires_grad=True)
         if aff_init is not None and not isinstance(aff_init, torch.Tensor):
