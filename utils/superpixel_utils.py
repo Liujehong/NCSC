@@ -16,13 +16,13 @@ def HSI_to_superpixels(img, num_superpixel, is_pca=True, is_show_superpixel=Fals
         pca = PCA(n_components=0.95)
         img = pca.fit_transform(scale(img.reshape(-1, n_band))).reshape(n_row, n_col, -1)
     superpixel_label = slic(img, n_segments=num_superpixel, compactness=20, max_iter=10, convert2lab=False,
-                            enforce_connectivity=True, min_size_factor=0.3, max_size_factor=2, slic_zero=False)
+                            enforce_connectivity=True, min_size_factor=0.3, max_size_factor=2, slic_zero=False) #超像素分割得到超像素块
     if is_show_superpixel:
         x = minmax_scale(img[:, :, :3].reshape(-1, 3)).reshape(n_row, n_col, -1)
         # color = (162/255, 169/255, 175/25)
         color = (132/255, 133/255, 135/255)
         # mask = mark_boundaries(x, superpixel_label, color=color, mode='subpixel')
-        mask_boundary = find_boundaries(superpixel_label, mode='subpixel')
+        mask_boundary = find_boundaries(superpixel_label, mode='subpixel')       
         mask_ = np.ones((mask_boundary.shape[0], mask_boundary.shape[1], 3))
         mask_[mask_boundary] = color
         plt.figure()
@@ -52,7 +52,7 @@ def show_superpixel(label, x=None):
 
 
 def create_association_mat(superpixel_labels):
-    labels = np.unique(superpixel_labels)
+    labels = np.unique(superpixel_labels)   #每个超像素块有唯一的标记
     # print(labels)
     n_labels = labels.shape[0]
     print('num superpixel: ', n_labels)
