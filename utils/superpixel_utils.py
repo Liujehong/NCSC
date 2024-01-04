@@ -55,7 +55,7 @@ def create_association_mat(superpixel_labels):
     labels = np.unique(superpixel_labels)   #每个超像素块有唯一的标记
     # print(labels)
     n_labels = labels.shape[0]
-    print('num superpixel: ', n_labels)
+    print('num superpixel: ', n_labels) #超像素块数
     n_pixels = superpixel_labels.shape[0] * superpixel_labels.shape[1]
     association_mat = np.zeros((n_pixels, n_labels))
     superpixel_labels_ = superpixel_labels.reshape(-1)
