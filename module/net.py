@@ -92,7 +92,7 @@ class Net(nn.Module):
 
     def forward(self, x, sp_adj=None):
         x = self.encoder(x)
-        x = torch.matmul(self.norm_association_mat.t(), x)  # n_spixel * n_dim
+        x = torch.matmul(self.norm_association_mat.t(), x)  # n_spixel * n_dim  #这里直接使用norm_association_mat去得到超像素的特征等价于取了整个超像素块内像素的平均值，这里可以使用一些基于注意力或者其他先验的方式去计算这个mat
         # pixel_to_sp = self.graph_att(pixel_to_sp, sp_adj)
         pixel_to_sp = self.sp_lin1(x)
         latent_recon = self.self_expr_layer(pixel_to_sp)
